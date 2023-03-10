@@ -9,6 +9,9 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -23,6 +26,9 @@ public class RDBMS_JDBC_Swing implements ActionListener {
 	JScrollPane sp1;
 	JTextArea ta1;
 	ButtonGroup bg1;
+	JMenuBar mb;
+	JMenu m1,m2,m3,m4,m5,m6;
+	JMenuItem mi[];
 
 	RDBMS_JDBC_Swing() {
 		JFrame fr = new JFrame("Registration Form");
@@ -92,9 +98,33 @@ public class RDBMS_JDBC_Swing implements ActionListener {
 		sp1 = new JScrollPane(ta1);
 		sp1.setBounds(500, 150, 400, 300);
 		fr.add(sp1);
+		
+		mb = new JMenuBar();
+		sp1.add(mb);
+		
+		m1 = new JMenu("S.No.");
+		mb.add(m1);
+		m2 = new JMenu("ID");
+		mb.add(m2);
+		m3 = new JMenu("Name");
+		mb.add(m3);
+		m4 = new JMenu("Gender");
+		mb.add(m4);
+		m5 = new JMenu("Address");
+		mb.add(m5);
+		m6 = new JMenu("Contact");
+		mb.add(m6);
+		
 		sp1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		sp1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
+		m1.addActionListener(this);
+		m2.addActionListener(this);
+		m3.addActionListener(this);
+		m4.addActionListener(this);
+		m5.addActionListener(this);
+		m6.addActionListener(this);
+		
 		b1.addActionListener(this);
 		b2.addActionListener(this);
 		b3.addActionListener(this);
@@ -207,7 +237,7 @@ public class RDBMS_JDBC_Swing implements ActionListener {
 		}
 
 		else if (e.getSource() == b4) {
-			System.out.println("Update Button Clickled.");
+			System.out.println("Update Button Clicked.");
 			int ID = Integer.parseInt(t1.getText());
 			String Name = t2.getText();
 			String Gender;
@@ -229,12 +259,13 @@ public class RDBMS_JDBC_Swing implements ActionListener {
 				pst.setString(3, Address);
 				pst.setLong(4, Contact);
 				pst.setInt(5, ID);
+				pst.executeUpdate();
 
 				System.out.println("Data Updated Succesfully.");
 				t1.setText("");
-				t1.setText("");
-				t1.setText("");
-				t1.setText("");
+				t2.setText("");
+				t3.setText("");
+				t4.setText("");
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
@@ -249,8 +280,111 @@ public class RDBMS_JDBC_Swing implements ActionListener {
 		}
 
 		else if (e.getSource() == b6) {
+			System.out.println("Refresh Button Clicked.");
 			try {
-
+				
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+		else if (e.getSource()==m1) {
+			System.out.println("S.No. Button Clicked.");
+			try {
+				Connection connection = RDBMS_JDBC_Swing.createconnection();
+				String sql = "select S.No. from registration_form";
+				PreparedStatement pst = connection.prepareStatement(sql);
+				
+				ResultSet rs = pst.executeQuery();
+				
+				while (rs.next()) {
+					String S_No = String.valueOf(rs.getString("S.No."));
+				}
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+		else if (e.getSource()==m2) {
+			System.out.println("ID Button Clicked.");
+			try {
+				Connection connection = RDBMS_JDBC_Swing.createconnection();
+				String sql = "select ID from registration_form";
+				PreparedStatement pst = connection.prepareStatement(sql);
+				
+				ResultSet rs = pst.executeQuery();
+				
+				while (rs.next()) {
+					String ID = String.valueOf(rs.getString("ID"));
+				}
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+		else if (e.getSource()==m3) {
+			System.out.println("Name Button Clicked.");
+			try {
+				Connection connection = RDBMS_JDBC_Swing.createconnection();
+				String sql = "select Name from registration_form";
+				PreparedStatement pst = connection.prepareStatement(sql);
+				
+				ResultSet rs = pst.executeQuery();
+				
+				while (rs.next()) {
+					String Name = rs.getString("S.No.");
+				}
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+		else if (e.getSource()==m4) {
+			System.out.println("Gender Button Clicked.");
+			try {
+				Connection connection = RDBMS_JDBC_Swing.createconnection();
+				String sql = "select Gender from registration_form";
+				PreparedStatement pst = connection.prepareStatement(sql);
+				
+				ResultSet rs = pst.executeQuery();
+				
+				while (rs.next()) {
+					String Gender = rs.getString("S.No.");
+				}
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+		else if (e.getSource()==m5) {
+			System.out.println("Address Button Clicked.");
+			try {
+				Connection connection = RDBMS_JDBC_Swing.createconnection();
+				String sql = "select Address from registration_form";
+				PreparedStatement pst = connection.prepareStatement(sql);
+				
+				ResultSet rs = pst.executeQuery();
+				
+				while (rs.next()) {
+					String Address = rs.getString("Address");
+				}
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+		else if (e.getSource()==m6) {
+			System.out.println("Contact Button Clicked.");
+			try {
+				Connection connection = RDBMS_JDBC_Swing.createconnection();
+				String sql = "select Contact from registration_form";
+				PreparedStatement pst = connection.prepareStatement(sql);
+				
+				ResultSet rs = pst.executeQuery();
+				
+				while (rs.next()) {
+					String Contact = rs.getString("Contact");
+				}
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
